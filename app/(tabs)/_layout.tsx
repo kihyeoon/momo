@@ -1,25 +1,31 @@
 import { Tabs } from "expo-router";
 import React from "react";
-import { Platform } from "react-native";
+import { colors } from "@/constants";
 
 export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "black",
+        tabBarActiveTintColor: colors.ORANGE_600,
         headerShown: false,
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
+          title: "홈",
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="my"
         options={{
-          title: "Explore ",
+          title: "내 프로필",
+        }}
+      />
+      <Tabs.Screen
+        name="setting"
+        options={{
+          title: "설정",
         }}
       />
     </Tabs>
