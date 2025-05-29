@@ -1,6 +1,6 @@
 import { SafeAreaView, Image, StyleSheet, View } from "react-native";
 import CustomButton from "@/components/CustomButton";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 
 const Index = () => {
   return (
@@ -12,7 +12,10 @@ const Index = () => {
         />
       </View>
       <View style={styles.bottomContainer}>
-        <CustomButton label="이메일 로그인" />
+        <CustomButton
+          label="이메일 로그인"
+          onPress={() => router.push("/auth/login")}
+        />
         <Link href="/" style={styles.signupText}>
           이메일로 가입하기
         </Link>
