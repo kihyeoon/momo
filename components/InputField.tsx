@@ -18,15 +18,13 @@ const InputField = ({
 }: InputFieldProps) => {
   return (
     <View>
-      <View>
-        {label && <Text style={styles.label}>{label}</Text>}
-        <View style={[styles.container, styles[variant]]}>
-          <TextInput
-            placeholderTextColor={colors.GRAY_500}
-            style={styles.input}
-            {...props}
-          />
-        </View>
+      {label && <Text style={styles.label}>{label}</Text>}
+      <View style={[styles.container, styles[variant]]}>
+        <TextInput
+          placeholderTextColor={colors.GRAY_500}
+          style={styles.input}
+          {...props}
+        />
       </View>
     </View>
   );
@@ -36,6 +34,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 12,
     color: colors.GRAY_700,
+    marginBottom: 4,
   },
   container: {
     height: 44,
