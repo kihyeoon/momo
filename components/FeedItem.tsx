@@ -3,6 +3,7 @@ import { colors } from "@/constants";
 import { MaterialCommunityIcons, Octicons, Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { Post } from "@/types";
+import Profile from "@/components/Profile";
 
 const FeedItem = ({ post }: { post: Post }) => {
   const [isLiked, setIsLiked] = useState(false);
@@ -10,6 +11,12 @@ const FeedItem = ({ post }: { post: Post }) => {
   return (
     <View style={styles.container}>
       <View style={styles.contentContainer}>
+        <Profile
+          onPress={() => {}}
+          nickname={post.author.nickname}
+          imageUri={post.author.imageUri}
+          createdAt={post.createdAt}
+        />
         <Text style={styles.title}>{post.title}</Text>
         <Text numberOfLines={3} style={styles.description}>
           {post.description}
