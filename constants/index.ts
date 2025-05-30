@@ -1,6 +1,11 @@
 const colors = {
   WHITE: "#FFF",
+  ORANGE_100: "#FFF7F1",
+  ORANGE_200: "#FFDEC6",
+  ORANGE_300: "#FFB884",
   ORANGE_600: "#FF6B57",
+  RED_100: "#FFDFDF",
+  RED_500: "#FF5F5F",
   GRAY_100: "#F5F5F5",
   GRAY_200: "#E2E8F0",
   GRAY_300: "#D1D5DB",
