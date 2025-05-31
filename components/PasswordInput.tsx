@@ -1,8 +1,15 @@
 import { Controller, useFormContext } from "react-hook-form";
 import InputField from "./InputField";
+import { TextInputProps } from "react-native";
 
-const PasswordInput = () => {
-  const { control } = useFormContext();
+interface PasswordInputProps extends TextInputProps {
+  submitBehavior?: TextInputProps["submitBehavior"];
+}
+
+const PasswordInput = ({
+  submitBehavior = "blurAndSubmit",
+}: PasswordInputProps) => {
+  const { control, setFocus } = useFormContext();
 
   return (
     <Controller
@@ -18,11 +25,15 @@ const PasswordInput = () => {
           }
         },
       }}
-      render={({ field: { onChange, value }, fieldState: { error } }) => (
+      render={({ field: { onChange, value, ref }, fieldState: { error } }) => (
         <InputField
           label="비밀번호"
           placeholder="비밀번호를 입력해주세요."
+          textContentType="oneTimeCode"
+          submitBehavior={submitBehavior}
+          onSubmitEditing={() => setFocus("passwordConfirm")}
           secureTextEntry
+          ref={ref}
           value={value}
           onChangeText={onChange}
           error={error?.message}

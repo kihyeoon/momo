@@ -16,12 +16,14 @@ const PasswordConfirmInput = () => {
           }
         },
       }}
-      render={({ field: { onChange, value }, fieldState: { error } }) => (
+      render={({ field: { onChange, value, ref }, fieldState: { error } }) => (
         <InputField
           label="비밀번호 확인"
           placeholder="비밀번호를 다시 입력해주세요."
+          textContentType="oneTimeCode"
           secureTextEntry
           value={value}
+          ref={ref}
           onChangeText={onChange}
           error={error?.message}
         />
