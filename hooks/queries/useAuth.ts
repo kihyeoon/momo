@@ -12,7 +12,10 @@ function useGetMe() {
     queryKey: ["auth", "getMe"],
   });
 
+  console.log("data ->", data);
+
   useEffect(() => {
+    console.log("isError ->", isError);
     if (isError) {
       removeHeader("Authorization");
       deleteSecureStore("accessToken");

@@ -25,6 +25,7 @@ const InputField = (
         style={[
           styles.container,
           styles[variant],
+          props.multiline && styles.multiline,
           !!error && styles.inputError,
         ]}
       >
@@ -74,6 +75,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: colors.RED_500,
     marginTop: 5,
+  },
+  multiline: {
+    alignItems: "flex-start",
+    paddingVertical: 10,
+    height: 200,
   },
 });
 
