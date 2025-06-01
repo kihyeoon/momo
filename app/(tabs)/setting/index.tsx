@@ -1,9 +1,15 @@
-import { SafeAreaView, Text } from "react-native";
+import { SafeAreaView, Button } from "react-native";
+import AuthRoute from "@/components/AuthRoute";
+import useAuth from "@/hooks/queries/useAuth";
 
 export default function SettingScreen() {
+  const { logout } = useAuth();
+
   return (
-    <SafeAreaView>
-      <Text>설정 스크린</Text>
-    </SafeAreaView>
+    <AuthRoute>
+      <SafeAreaView>
+        <Button title="로그아웃" onPress={logout} />
+      </SafeAreaView>
+    </AuthRoute>
   );
 }
