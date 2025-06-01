@@ -26,6 +26,9 @@ interface VoteOption {
   content: string;
 }
 
+/**
+ * 게시글 생성 시 서버로 전송하는 타입
+ */
 interface CreatePostDto {
   title: string;
   description: string;
