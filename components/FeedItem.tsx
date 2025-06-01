@@ -1,12 +1,19 @@
-import { View, StyleSheet, Text, Pressable } from "react-native";
 import { colors } from "@/constants";
-import { MaterialCommunityIcons, Octicons, Ionicons } from "@expo/vector-icons";
-import { useState } from "react";
+import React from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Octicons, MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import { Post } from "@/types";
-import Profile from "@/components/Profile";
+import Profile from "./Profile";
+import useAuth from "@/hooks/queries/useAuth";
 
-const FeedItem = ({ post }: { post: Post }) => {
-  const [isLiked, setIsLiked] = useState(false);
+interface FeedItemProps {
+  post: Post;
+}
+
+const FeedItem = ({ post }: FeedItemProps) => {
+  const { auth } = useAuth();
+  const likeUsers = post.likes?.map((like) => Number(like.userId));
+  const isLiked = likeUsers?.includes(Number(auth.id));
 
   return (
     <View style={styles.container}>
@@ -23,14 +30,14 @@ const FeedItem = ({ post }: { post: Post }) => {
         </Text>
       </View>
       <View style={styles.menuContainer}>
-        <Pressable style={styles.menu} onPress={() => setIsLiked(!isLiked)}>
+        <Pressable style={styles.menu}>
           <Octicons
             name={isLiked ? "heart-fill" : "heart"}
             size={16}
             color={isLiked ? colors.ORANGE_600 : colors.BLACK}
           />
           <Text style={isLiked ? styles.activeMenuText : styles.menuText}>
-            {post.likes.length}
+            {post.likes.length || "좋아요"}
           </Text>
         </Pressable>
         <Pressable style={styles.menu}>
@@ -39,7 +46,7 @@ const FeedItem = ({ post }: { post: Post }) => {
             size={16}
             color={colors.BLACK}
           />
-          <Text style={styles.menuText}>{post.commentCount}</Text>
+          <Text style={styles.menuText}>{post.commentCount || "댓글"}</Text>
         </Pressable>
         <Pressable style={styles.menu}>
           <Ionicons name="eye-outline" size={16} color={colors.BLACK} />
