@@ -3,6 +3,9 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
+import queryClient from "@/api/queryClient";
+import { QueryClientProvider } from "@tanstack/react-query";
+import useAuth from "@/hooks/queries/useAuth";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -20,6 +23,17 @@ export default function RootLayout() {
   if (!loaded) {
     return null;
   }
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RootNavigator />
+    </QueryClientProvider>
+  );
+}
+
+function RootNavigator() {
+  const { auth } = useAuth();
+  console.log("auth ->", auth);
 
   return (
     <Stack>
