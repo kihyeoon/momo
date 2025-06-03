@@ -5,6 +5,7 @@ import { Octicons, MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import { Post } from "@/types";
 import Profile from "./Profile";
 import useAuth from "@/hooks/queries/useAuth";
+import { useActionSheet } from "@expo/react-native-action-sheet";
 
 interface FeedItemProps {
   post: Post;
@@ -14,6 +15,32 @@ const FeedItem = ({ post }: FeedItemProps) => {
   const { auth } = useAuth();
   const likeUsers = post.likes?.map((like) => Number(like.userId));
   const isLiked = likeUsers?.includes(Number(auth.id));
+  const { showActionSheetWithOptions } = useActionSheet();
+
+  const handlePressOption = () => {
+    const options = ["삭제", "수정", "취소"];
+    const cancelButtonIndex = options.length - 1;
+    const destructiveButtonIndex = 0;
+
+    showActionSheetWithOptions(
+      { options, cancelButtonIndex, destructiveButtonIndex },
+      (selectedIndex) => {
+        switch (selectedIndex) {
+          case destructiveButtonIndex:
+            console.log("삭제");
+            break;
+          case 1:
+            console.log("수정");
+            break;
+          case cancelButtonIndex:
+            console.log("취소");
+            break;
+          default:
+            break;
+        }
+      }
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -23,6 +50,16 @@ const FeedItem = ({ post }: FeedItemProps) => {
           nickname={post.author.nickname}
           imageUri={post.author.imageUri}
           createdAt={post.createdAt}
+          option={
+            auth.id === post.author.id && (
+              <Ionicons
+                name="ellipsis-vertical"
+                size={24}
+                color={colors.BLACK}
+                onPress={handlePressOption}
+              />
+            )
+          }
         />
         <Text style={styles.title}>{post.title}</Text>
         <Text numberOfLines={3} style={styles.description}>
