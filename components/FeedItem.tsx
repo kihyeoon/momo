@@ -31,7 +31,13 @@ const FeedItem = ({ post, isDetail = false }: FeedItemProps) => {
       (selectedIndex) => {
         switch (selectedIndex) {
           case destructiveButtonIndex:
-            deletePost(post.id);
+            deletePost(post.id, {
+              onSuccess: () => {
+                if (isDetail) {
+                  router.back();
+                }
+              },
+            });
             break;
           case 1:
             router.push(`/post/update/${post.id}`);
