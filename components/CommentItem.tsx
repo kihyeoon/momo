@@ -1,7 +1,7 @@
 import { colors } from "@/constants";
 import { Comment } from "@/types";
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View, Text } from "react-native";
 import Profile from "./Profile";
 import useAuth from "@/hooks/queries/useAuth";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
@@ -12,12 +12,31 @@ import useDeleteComment from "@/hooks/queries/useDeleteComment";
 interface CommentItemProps {
   comment: Comment;
   isReply?: boolean;
+  onReply?: () => void;
+  onCancelReply?: () => void;
+  parentCommentId?: number | null;
 }
 
-function CommentItem({ comment, isReply = false }: CommentItemProps) {
+function CommentItem({
+  comment,
+  isReply = false,
+  onReply,
+  onCancelReply,
+  parentCommentId,
+}: CommentItemProps) {
   const { auth } = useAuth();
   const { showActionSheetWithOptions } = useActionSheet();
   const deleteComment = useDeleteComment();
+
+  const getCommentBackground = () => {
+    if (parentCommentId === comment.id) {
+      return colors.ORANGE_100;
+    }
+    if (isReply) {
+      return colors.GRAY_50;
+    }
+    return colors.WHITE;
+  };
 
   const handlePressOption = () => {
     const options = ["삭제", "취소"];
@@ -45,7 +64,9 @@ function CommentItem({ comment, isReply = false }: CommentItemProps) {
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[styles.container, { backgroundColor: getCommentBackground() }]}
+    >
       <View style={styles.profileContainer}>
         {isReply && (
           <MaterialCommunityIcons
@@ -76,6 +97,18 @@ function CommentItem({ comment, isReply = false }: CommentItemProps) {
         editable={false}
         value={comment.isDeleted ? "삭제된 댓글입니다." : comment.content}
       />
+      {!comment.isDeleted && !isReply && (
+        <View style={styles.replyButtonContainer}>
+          <Pressable onPress={onReply}>
+            <Text style={styles.replyButton}>답글 남기기</Text>
+          </Pressable>
+          {parentCommentId === comment.id && (
+            <Pressable onPress={onCancelReply}>
+              <Text style={styles.cancelButton}>취소</Text>
+            </Pressable>
+          )}
+        </View>
+      )}
     </View>
   );
 }
@@ -92,6 +125,21 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 10,
+  },
+  replyButtonContainer: {
+    flexDirection: "row",
+    gap: 10,
+    alignItems: "center",
+  },
+  replyButton: {
+    fontWeight: "bold",
+    fontSize: 12,
+    color: colors.ORANGE_600,
+  },
+  cancelButton: {
+    fontWeight: "bold",
+    fontSize: 12,
+    color: colors.BLACK,
   },
 });
 
