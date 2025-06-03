@@ -6,16 +6,23 @@ import {
   StyleSheet,
   TextInputProps,
 } from "react-native";
-import { forwardRef } from "react";
+import { forwardRef, ReactNode } from "react";
 
 interface InputFieldProps extends TextInputProps {
   label?: string;
   variant?: "filled" | "standard" | "outlined";
   error?: string;
+  rightChild?: ReactNode;
 }
 
 const InputField = (
-  { label, variant = "filled", error, ...props }: InputFieldProps,
+  {
+    label,
+    variant = "filled",
+    error,
+    rightChild = null,
+    ...props
+  }: InputFieldProps,
   ref: React.Ref<TextInput>
 ) => {
   return (
@@ -38,6 +45,7 @@ const InputField = (
           ref={ref}
           {...props}
         />
+        {rightChild}
       </View>
       {error && <Text style={styles.error}>{error}</Text>}
     </View>
