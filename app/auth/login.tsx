@@ -5,6 +5,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import EmailInput from "@/components/EmailInput";
 import PasswordInput from "@/components/PasswordInput";
 import useAuth from "@/hooks/queries/useAuth";
+import usePushNotification from "@/hooks/usePushNotification";
 
 interface FormValues {
   email: string;
@@ -13,6 +14,8 @@ interface FormValues {
 
 const LoginScreen = () => {
   const { loginMutation } = useAuth();
+  const { expoPushToken } = usePushNotification();
+  console.log("expoPushToken", expoPushToken);
   const loginForm = useForm<FormValues>({
     defaultValues: {
       email: "",
@@ -21,8 +24,7 @@ const LoginScreen = () => {
   });
 
   const onSubmit = (formValues: FormValues) => {
-    const { email, password } = formValues;
-    loginMutation.mutate({ email, password });
+    loginMutation.mutate({ ...formValues, expoPushToken });
   };
 
   return (
