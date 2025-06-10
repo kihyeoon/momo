@@ -77,6 +77,8 @@ function useAuth() {
       id: data?.id || "",
       email: data?.email || "",
       nickname: data?.nickname || "",
+      imageUri: data?.imageUri || "",
+      introduce: data?.introduce || "",
     },
     loginMutation,
     signupMutation,
