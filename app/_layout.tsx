@@ -10,6 +10,7 @@ import useAuth from "@/hooks/queries/useAuth";
 import Toast from "react-native-toast-message";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import * as Notifications from "expo-notifications";
+import useNotificationObserver from "@/hooks/useNotificationObserver";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -51,6 +52,8 @@ export default function RootLayout() {
 
 function RootNavigator() {
   const { auth } = useAuth();
+
+  useNotificationObserver();
 
   useEffect(() => {
     Toast.show({

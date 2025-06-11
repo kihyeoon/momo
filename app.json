@@ -10,14 +10,14 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.momo.app"
+      "bundleIdentifier": "com.kihyeon.momo"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.momo.app",
+      "package": "com.kihyeon.momo",
       "permissions": [
         "android.permission.RECORD_AUDIO"
       ]
