@@ -80,7 +80,7 @@ const FeedItem = ({ post, isDetail = false }: FeedItemProps) => {
     <ContainerComponent style={styles.container} onPress={handlePressFeed}>
       <View style={styles.contentContainer}>
         <Profile
-          onPress={() => {}}
+          onPress={() => router.push(`/profile/${post.author.id}`)}
           nickname={post.author.nickname}
           imageUri={post.author.imageUri}
           createdAt={post.createdAt}
